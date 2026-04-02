@@ -124,10 +124,6 @@
 }
 
 /* TIDAK LOLOS */
-.tidak {
-    text-align: center;
-    padding: 60px;
-}
 
 .tidak .header {
     background: linear-gradient(90deg, #850f0f, #480606);
@@ -200,9 +196,12 @@
 @else
 
         <!-- HEADER -->
-    <div class="header">
-        <h1>MAAF! ANDA DINYATAKAN TIDAK LOLOS SEBAGAI SISWA ELIGIBLE</h1>
-        <img src="{{ asset('img/logo.png') }}" width="95">
+
+    <div class="tidak">
+        <div class="header">
+            <h1>MAAF! ANDA DINYATAKAN TIDAK LOLOS SEBAGAI SISWA ELIGIBLE</h1>
+            <img src="{{ asset('img/logo.png') }}" width="95">
+        </div>
     </div>
 
     <!-- CONTENT -->
@@ -225,6 +224,12 @@
             </div>
 
         </div>
+
+        <div>
+                <div class="label">Rata-rata Nilai</div>
+                <div class="value">
+                     {{ $student->nilai_rata ?? '-' }}
+             </div>
 
         <div class="footer">
            Masih ada kesempatan mendaftar dan mengikuti SNBT 2026 atau seleksi mandiri PTN.
