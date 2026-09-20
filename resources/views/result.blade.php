@@ -2,43 +2,40 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Hasil SNBP</title>
+<title>Hasil Pengumuman</title>
 
 <style>
 * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
- body {
-      height: 100vh;
-      background: url('{{ asset("img/backround.png") }}') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-/* overlay blur */
- .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.325);
-    }
-
-/* card utama */
-.card {
-    position: relative;
-      width: 700px;
-      background: rgba(19, 19, 26, 0.708);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.7);
-      color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* header biru */
+body {
+    height: 100vh;
+    background: url('{{ asset("img/backround.png") }}') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.325);
+}
+
+.card {
+    position: relative;
+    width: 700px;
+    background: rgba(19, 19, 26, 0.708);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+    color: white;
+}
+
 .header {
     background: linear-gradient(90deg, #083661, #006CBF);
     padding: 20px 30px;
@@ -48,19 +45,16 @@
     text-align: left;
 }
 
-/* konten */
 .content {
     padding: 40px;
 }
 
-/* nama besar */
 .nama {
     font-size: 32px;
     font-weight: 700;
     margin: 10px 0;
 }
 
-/* grid info */
 .info {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -69,48 +63,24 @@
 }
 
 .label {
-      display: block;
-      margin-top: 18px;
-      margin-bottom: 8px;
-      color: #88ccf0;
-      font-weight: 600;
-      font-size: 18px;
-    }
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    color: #88ccf0;
+    font-weight: 600;
+    font-size: 18px;
+}
 
 .value {
     font-size: 18px;
     font-weight: 600;
 }
 
-/* box kanan */
-.side-box {
-    position: absolute;
-    right: 30px;
-    top: 120px;
-    width: 250px;
-}
-
-
-
-/* box putih */
-.notice {
-    background: white;
-    color: black;
-    padding: 15px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.notice a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-/* footer kecil */
 .footer {
     margin-top: 30px;
     font-size: 15px;
     color: #aaa;
+    line-height: 1.6;
 }
 
 .btn {
@@ -124,7 +94,6 @@
 }
 
 /* TIDAK LOLOS */
-
 .tidak .header {
     background: linear-gradient(90deg, #850f0f, #480606);
     padding: 20px 30px;
@@ -143,19 +112,22 @@
 
 <div class="card">
 
-@if($student->status_eligible)
+@if($student->hasilDivisi->jenis_hasil === 'pilihan_1')
 
     <!-- HEADER -->
     <div class="header">
-        <h1>SELAMAT! ANDA DINYATAKAN SEBAGAI SISWA ELIGIBLE</h1>
-        <img src="{{ asset('img/logo.png') }}" width="95">
+        <h1>SELAMAT! ANDA DITERIMA PADA DIVISI PILIHAN 1</h1>
     </div>
 
     <!-- CONTENT -->
     <div class="content">
 
         <div class="label">
-            NISN {{ $student->nisn }}
+            NIM
+        </div>
+
+        <div class="value">
+            {{ $student->nim }}
         </div>
 
         <div class="nama">
@@ -163,44 +135,37 @@
         </div>
 
         <div class="info">
+
             <div>
-                <div class="label">Tanggal Lahir</div>
+                <div class="label">Divisi</div>
                 <div class="value">
-                    {{ date('d/m/Y', strtotime($student->tanggal_lahir)) }}
+                    {{ $student->hasilDivisi->divisi }}
                 </div>
             </div>
 
             <div>
-                <div class="label">Peringkat Eligible</div>
+                <div class="label">Keterangan</div>
                 <div class="value">
-                    {{ $student->peringkat }}
+                    {{ $student->hasilDivisi->keterangan }}
                 </div>
             </div>
 
-            <div>
-                <div class="label">Rata-rata Nilai</div>
-                <div class="value">
-                     {{ $student->nilai_rata ?? '-' }}
-             </div>
-</div>
-
         </div>
-
-        <div class="footer">
-            Status ini ditetapkan oleh pihak sekolah berdasarkan hasil rapat dewan guru.
-        </div>
+            <div class="footer">
+                Selamat! Anda dinyatakan diterima pada divisi pilihan pertama Anda.
+                Semoga Anda dapat menjalankan tugas dan tanggung jawab dengan baik.
+            </div>
 
         <a href="/" class="btn">Kembali</a>
+
     </div>
 
 @else
 
-        <!-- HEADER -->
-
+    <!-- HEADER -->
     <div class="tidak">
         <div class="header">
-            <h1>MAAF! ANDA DINYATAKAN TIDAK LOLOS SEBAGAI SISWA ELIGIBLE</h1>
-            <img src="{{ asset('img/logo.png') }}" width="95">
+            <h1>MAAF! ANDA DINYATAKAN TIDAK LOLOS PADA DIVISI PILIHAN 1</h1>
         </div>
     </div>
 
@@ -208,36 +173,48 @@
     <div class="content">
 
         <div class="label">
-            NISN {{ $student->nisn }}
+            NIM
+        </div>
+
+        <div class="value">
+            {{ $student->nim }}
         </div>
 
         <div class="nama">
             {{ strtoupper($student->nama) }}
         </div>
 
+        <!-- KETERANGAN PENGUMUMAN -->
+        <div class="footer">
+            {{ $student->hasilDivisi->keterangan_pengumuman }}
+        </div>
+
+        <!-- DETAIL HASIL -->
         <div class="info">
+
             <div>
-                <div class="label">Tanggal Lahir</div>
+                <div class="label">Divisi</div>
                 <div class="value">
-                    {{ date('d/m/Y', strtotime($student->tanggal_lahir)) }}
+                    {{ $student->hasilDivisi->divisi }}
+                </div>
+            </div>
+
+            <div>
+                <div class="label">Keterangan</div>
+                <div class="value">
+                    {{ $student->hasilDivisi->keterangan }}
                 </div>
             </div>
 
         </div>
 
-        <div>
-                <div class="label">Rata-rata Nilai</div>
-                <div class="value">
-                     {{ $student->nilai_rata ?? '-' }}
-             </div>
-
         <div class="footer">
-           Masih ada kesempatan mendaftar dan mengikuti SNBT 2026 atau seleksi mandiri PTN.
+            Tetap semangat! Meskipun bukan di pilihan pertama, semoga Anda dapat menjalankan tugas dan tanggung jawab dengan baik.
         </div>
 
         <a href="/" class="btn">Kembali</a>
-    </div>
 
+    </div>
 
 @endif
 

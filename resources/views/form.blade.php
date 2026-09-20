@@ -39,19 +39,15 @@
 
     .header {
       display: flex;
-      align-items: center;
+      align-items: left;
       gap: 20px;
-    }
-
-    .logo {
-      width: 90px;
       margin-bottom: 20px;
     }
 
 
     .subtitle {
       color: #b0b0b0;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-size: 18px;
     }
 
@@ -96,7 +92,7 @@
     h1 {
       font-weight: 700;
       color: white;
-      text-align: center;
+      text-align: left;
     }
     button {
       width: 100%;
@@ -121,33 +117,22 @@
 <div class="card">
 
     <div class="header">
-        <img src="{{ asset('img/logo.png') }}" class="logo">
-
         <h1>
-            PENGUMUMAN SISWA ELIGIBLE <br>
-            SMA NEGERI 1 GUNUNGSITOLI
+            PENGUMUMAN PILIHAN DIVISI <br>
+            PROYEK MKWK PERUNDUNGAN 82
         </h1>
     </div>
 
     <p class="subtitle">
-        Masukkan NISN dan Tanggal Lahir.
+        Silahkan Masukkan NIM Anda
     </p>
 
     <!-- FORM MULAI -->
     <form method="POST" action="/check">
         @csrf
 
-        <label>NISN</label>
-        <input type="text" name="nisn" placeholder="Nomor Induk Siswa Nasional">
-
-        <label>Tanggal Lahir</label>
-        <div class="date-group">
-            <input type="text" name="tanggal" placeholder="Tanggal">
-            <span>/</span>
-            <input type="text" name="bulan" placeholder="Bulan">
-            <span>/</span>
-            <input type="text" name="tahun" placeholder="Tahun">
-        </div>
+        <label>NIM</label>
+        <input type="text" name="nim" placeholder="Nomor Induk Mahasiswa">
 
         <div class="action">
             <button type="submit">Lihat Hasil Seleksi</button>

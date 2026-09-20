@@ -10,10 +10,11 @@ class Student extends Model
 
     protected $fillable = [
         'nama',
-        'nisn',
-        'tanggal_lahir',
-        'status_eligible',
-        'peringkat',
-        'nilai_rata'
+        'nim',
     ];
+
+    public function hasilDivisi()
+    {
+        return $this->hasOne(HasilDivisi::class);
+    }
 }

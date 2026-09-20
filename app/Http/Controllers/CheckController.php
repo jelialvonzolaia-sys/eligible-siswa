@@ -9,19 +9,12 @@ class CheckController extends Controller
 {
     public function check(Request $request)
     {
-        // ambil input
-        $nisn = $request->nisn;
+        // ambil NIM dari input
+        $nim = $request->nim;
 
-        // rapikan format tanggal (biar selalu 2 digit)
-        $tanggal = str_pad($request->tanggal, 2, '0', STR_PAD_LEFT);
-        $bulan   = str_pad($request->bulan, 2, '0', STR_PAD_LEFT);
-
-        // gabungkan jadi format YYYY-MM-DD
-        $tanggal_lahir = $request->tahun . '-' . $bulan . '-' . $tanggal;
-
-        // cari data di database
-        $student = Student::where('nisn', $nisn)
-            ->where('tanggal_lahir', $tanggal_lahir)
+        // cari mahasiswa berdasarkan NIM
+        $student = Student::where('nim', $nim)
+            ->with('hasilDivisi')
             ->first();
 
         // kalau data tidak ditemukan
